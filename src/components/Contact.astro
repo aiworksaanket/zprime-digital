@@ -1,0 +1,97 @@
+---
+import { contact } from "../content/site";
+import InquiryForm from "./InquiryForm.astro";
+import StudioLabel from "./StudioLabel.astro";
+---
+
+<section class="section contact theme-ink" id={contact.id}>
+  <div class="wrap">
+    <header class="section-head">
+      <StudioLabel text={contact.label} />
+      <h2>{contact.heading}</h2>
+      <p class="lede">{contact.lede}</p>
+    </header>
+
+    <div class="contact__grid">
+      <dl class="details">
+        {
+          contact.details.map((item) => (
+            <div>
+              <dt>{item.label}</dt>
+              <dd>
+                {item.href ? (
+                  <a href={item.href}>{item.value}</a>
+                ) : (
+                  item.value
+                )}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+      <div class="contact__panel">
+        <InquiryForm />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .details {
+    display: grid;
+    gap: 1.35rem;
+    margin: 0;
+  }
+
+  .details div {
+    padding-bottom: 1.15rem;
+    border-bottom: 1px solid var(--line-on-ink);
+  }
+
+  .details dt {
+    margin-bottom: 0.4rem;
+    color: var(--paper-muted);
+    font-size: var(--text-label);
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+  }
+
+  .details dd {
+    margin: 0;
+    font-size: 1.02rem;
+    letter-spacing: -0.015em;
+  }
+
+  .details a {
+    text-decoration: none;
+    background-image: linear-gradient(var(--paper-on-ink), var(--paper-on-ink));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size var(--dur-med) var(--ease-out-quart);
+  }
+
+  .details a:hover {
+    background-size: 100% 1px;
+  }
+
+  .contact__panel {
+    padding: clamp(1.4rem, 3vw, 2rem);
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  @media (max-width: 800px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

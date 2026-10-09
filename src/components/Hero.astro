@@ -1,0 +1,118 @@
+---
+import { hero, services } from "../content/site";
+---
+
+<section class="hero" id="top">
+  <div class="wrap hero__grid">
+    <div class="hero__intro">
+      <p class="studio-label hero-enter">{hero.label}</p>
+      <h1 class="hero__title display hero-enter hero-enter-delay">
+        {hero.headline[0]}
+        <br />
+        {hero.headline[1]}
+      </h1>
+      <p class="lede hero-enter hero-enter-delay">{hero.lede}</p>
+      <div class="hero__actions hero-enter hero-enter-late">
+        <a class="btn" href={hero.primaryCta.href}>{hero.primaryCta.label}</a>
+        <a class="text-link" href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
+      </div>
+    </div>
+
+    <ol class="hero__list hero-enter hero-enter-late" aria-label="What we run">
+      {
+        services.items.map((item) => (
+          <li>
+            <span class="mono">{item.index}</span>
+            <strong>{item.title}</strong>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--bg);
+    color: var(--ink);
+    padding-top: clamp(1.5rem, 4.5vh, 2.75rem);
+    padding-bottom: clamp(1.75rem, 5vh, 3.25rem);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.7fr);
+    gap: clamp(2.5rem, 7vw, 6rem);
+    align-items: center;
+  }
+
+  .hero__intro {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 36rem;
+  }
+
+  .hero__title {
+    font-size: var(--text-display);
+    font-weight: 650;
+    letter-spacing: var(--track-display);
+    line-height: var(--leading-display);
+    overflow-wrap: break-word;
+  }
+
+  .hero .lede {
+    max-width: 38ch;
+    color: var(--muted);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .hero__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero__list li {
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--line);
+    font-size: 1.05rem;
+  }
+
+  .hero__list li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero__list .mono {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .hero__list strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero__title {
+      font-size: clamp(2.05rem, 10.5vw, 2.55rem);
+    }
+  }
+</style>

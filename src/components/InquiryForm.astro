@@ -1,0 +1,159 @@
+---
+import { contact, requirements } from "../content/site";
+
+const fields = [
+  { name: "name", label: "Your name", type: "text", autocomplete: "name" },
+  { name: "company", label: "Company", type: "text", autocomplete: "organization" },
+  { name: "email", label: "Email", type: "email", autocomplete: "email" },
+  { name: "phone", label: "Phone", type: "tel", autocomplete: "tel" },
+] as const;
+---
+
+<form class="form" data-inquiry-form novalidate>
+  <div class="form__intro">
+    <h3>{contact.form.title}</h3>
+    <p>{contact.form.description}</p>
+  </div>
+
+  {
+    fields.map((field) => (
+      <div class="field">
+        <label for={field.name}>{field.label}</label>
+        <input
+          id={field.name}
+          name={field.name}
+          type={field.type}
+          autocomplete={field.autocomplete}
+          aria-describedby={`${field.name}-error`}
+        />
+        <p class="field__error" id={`${field.name}-error`} data-error-for={field.name}></p>
+      </div>
+    ))
+  }
+
+  <div class="field">
+    <label for="requirement">Requirement type</label>
+    <select id="requirement" name="requirement" aria-describedby="requirement-error">
+      <option value="" disabled selected>Select one</option>
+      {requirements.map((item) => <option value={item.value}>{item.label}</option>)}
+    </select>
+    <p class="field__error" id="requirement-error" data-error-for="requirement"></p>
+  </div>
+
+  <div class="form__actions">
+    <button class="btn" type="submit">{contact.form.submit}</button>
+  </div>
+
+  <div class="form__success" data-success hidden>
+    <p>{contact.form.success}</p>
+    <button class="text-link" type="button" data-copy-email data-copied={contact.form.copied}>
+      <span data-copy-label>{contact.form.copyEmail}</span>
+    </button>
+  </div>
+</form>
+
+<script src="../scripts/inquiry-form.ts"></script>
+
+<style>
+  .form {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  .form__intro {
+    display: grid;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .form__intro h3 {
+    font-size: var(--text-subhead);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .form__intro p {
+    font-size: var(--text-small);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .field label {
+    color: var(--muted);
+    font-size: var(--text-label);
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    padding: 0.55rem 0 0.65rem;
+    border: 0;
+    border-bottom: 1px solid var(--line-strong);
+    border-radius: 0;
+    background: transparent;
+    appearance: none;
+  }
+
+  .field select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+      linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position:
+      calc(100% - 10px) calc(50% + 1px),
+      calc(100% - 4px) calc(50% + 1px);
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 1.4rem;
+  }
+
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible {
+    border-bottom-color: var(--accent);
+    border-bottom-width: 2px;
+    outline: none;
+  }
+
+  .field input[aria-invalid="true"],
+  .field select[aria-invalid="true"] {
+    border-bottom-color: var(--accent);
+  }
+
+  .field__error {
+    min-height: 1.1em;
+    color: var(--accent);
+    font-size: 0.8125rem;
+  }
+
+  .form__actions {
+    padding-top: 0.35rem;
+  }
+
+  .form__success {
+    display: grid;
+    gap: 0.65rem;
+    padding-top: 0.25rem;
+    font-size: var(--text-small);
+  }
+
+  .form__success[hidden] {
+    display: none;
+  }
+
+  .form__success .text-link {
+    justify-self: start;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+</style>

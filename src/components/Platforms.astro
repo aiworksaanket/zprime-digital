@@ -1,0 +1,87 @@
+---
+import { platforms } from "../content/site";
+import StudioLabel from "./StudioLabel.astro";
+---
+
+<section class="section platforms theme-ink" aria-labelledby="platforms-heading">
+  <div class="wrap">
+    <header class="section-head">
+      <StudioLabel text={platforms.label} />
+      <h2 id="platforms-heading">{platforms.heading}</h2>
+      <p class="lede">{platforms.lede}</p>
+    </header>
+
+    <ul class="wall">
+      {
+        platforms.items.map((item) => (
+          <li>
+            <strong class="display">{item.name}</strong>
+            <span>{item.note}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .platforms {
+    background: var(--ink-deep);
+    color: var(--paper-on-ink);
+    border: 0;
+  }
+
+  .platforms :global(.studio-label),
+  .platforms .lede {
+    color: var(--paper-muted);
+  }
+
+  .wall {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line-on-ink);
+  }
+
+  .wall li {
+    display: grid;
+    gap: 0.45rem;
+    padding: 1.5rem 1.25rem 1.7rem 0;
+    border-bottom: 1px solid var(--line-on-ink);
+    border-right: 1px solid var(--line-on-ink);
+  }
+
+  .wall li:nth-child(3n) {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .wall strong {
+    font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+  }
+
+  .wall span {
+    color: var(--paper-muted);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 760px) {
+    .wall {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .wall li:nth-child(3n) {
+      border-right: 1px solid var(--line-on-ink);
+      padding-right: 1.25rem;
+    }
+
+    .wall li:nth-child(2n) {
+      border-right: 0;
+      padding-right: 0;
+    }
+  }
+</style>

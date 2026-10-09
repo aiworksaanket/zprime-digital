@@ -1,0 +1,60 @@
+:root {
+  --bg: oklch(0.985 0.006 255);
+  --ink: oklch(0.18 0.012 255);
+  --ink-deep: oklch(0.14 0.022 255);
+  --paper-on-ink: oklch(0.96 0.006 255);
+  --paper-muted: oklch(0.78 0.012 255);
+  --accent: #072c6b;
+  --accent-deep: #051e4a;
+  --accent-soft: #7aa3d9;
+  --muted: oklch(0.42 0.02 255);
+  --line: oklch(0.18 0.02 255 / 0.14);
+  --line-strong: oklch(0.18 0.02 255 / 0.28);
+  --line-on-ink: oklch(0.96 0.006 255 / 0.16);
+  --on-accent: oklch(0.99 0.004 255);
+  --well: oklch(0.94 0.01 255);
+
+  --font-display: "Archivo", "Host Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Host Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-display: clamp(2.5rem, 6vw, 4.75rem);
+  --text-section: clamp(1.85rem, 3.4vw, 2.75rem);
+  --text-subhead: clamp(1.15rem, 1.6vw, 1.4rem);
+  --text-body: 1rem;
+  --text-small: 0.9375rem;
+  --text-label: 0.6875rem;
+
+  --track-display: -0.03em;
+  --track-label: 0.14em;
+
+  --leading-display: 1.05;
+  --leading-section: 1.15;
+  --leading-body: 1.65;
+
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+  --space-2xl: 8rem;
+
+  --page-pad: clamp(1.25rem, 5vw, 4rem);
+  --page-max: 72rem;
+  --measure: 62ch;
+
+  --radius-sm: 0px;
+
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-toast: 30;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-med: 320ms;
+  --dur-hero: 720ms;
+
+  --nav-h: 4.25rem;
+}

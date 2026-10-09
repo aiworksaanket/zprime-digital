@@ -1,0 +1,144 @@
+---
+import { why } from "../content/site";
+import StudioLabel from "./StudioLabel.astro";
+---
+
+<section class="section why" id={why.id}>
+  <div class="wrap">
+    <header class="section-head">
+      <StudioLabel text={why.label} />
+      <h2>{why.heading}</h2>
+      <p class="lede">{why.lede}</p>
+    </header>
+
+    <dl class="coverage">
+      {
+        why.coverage.map((item) => (
+          <div>
+            <dt>{item.label}</dt>
+            <dd class="mono">{item.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul class="points">
+      {
+        why.items.map((item) => (
+          <li>
+            <p class="points__word">{item.emphasis}</p>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .coverage {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0 0 clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .coverage div {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.15rem 1.1rem 1.25rem 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .coverage div:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .coverage dt {
+    color: var(--muted);
+    font-size: var(--text-label);
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+  }
+
+  .coverage dd {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .points li {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    padding: 1.75rem 1.75rem 2rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .points li:nth-child(odd) {
+    padding-right: 2.5rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .points li:nth-child(even) {
+    padding-left: 2.5rem;
+  }
+
+  .points__word {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 3.4vw, 2.5rem);
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .points h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  .points p:last-child {
+    max-width: 36ch;
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 760px) {
+    .coverage {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .coverage div:nth-child(2n) {
+      border-right: 0;
+      padding-right: 0;
+    }
+
+    .coverage div:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+
+    .points {
+      grid-template-columns: 1fr;
+    }
+
+    .points li,
+    .points li:nth-child(odd),
+    .points li:nth-child(even) {
+      padding: 1.5rem 0;
+      border-right: 0;
+    }
+  }
+</style>

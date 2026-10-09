@@ -1,0 +1,142 @@
+---
+import { team } from "../content/site";
+import StudioLabel from "./StudioLabel.astro";
+
+const founder = team.members.find((member) => member.featured);
+const rest = team.members.filter((member) => !member.featured);
+---
+
+<section class="section team" id={team.id}>
+  <div class="wrap">
+    <header class="section-head">
+      <StudioLabel text={team.label} />
+      <h2>{team.heading}</h2>
+      <p class="lede">{team.lede}</p>
+    </header>
+
+    {
+      founder && (
+        <article class="founder">
+          <div class="well" aria-hidden="true">
+            <span class="mono">{founder.initials}</span>
+          </div>
+          <div class="founder__copy">
+            <p class="studio-label">{founder.role} · {founder.specialty}</p>
+            <h3>{founder.name}</h3>
+            <p>{founder.bio}</p>
+            {founder.close && <p class="founder__close">{founder.close}</p>}
+            <ul class="chips">
+              {founder.chips.map((chip) => <li class="chip">{chip}</li>)}
+            </ul>
+          </div>
+        </article>
+      )
+    }
+
+    <div class="roster">
+      {
+        rest.map((member) => (
+          <article>
+            <div class="well well--portrait" aria-hidden="true">
+              <span class="mono">{member.initials}</span>
+            </div>
+            <p class="studio-label">{member.specialty}</p>
+            <h3>{member.role}</h3>
+            <p>{member.bio}</p>
+            <ul class="chips">
+              {member.chips.map((chip) => <li class="chip">{chip}</li>)}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .team {
+    border-top: 1px solid var(--line);
+  }
+
+  .founder {
+    display: grid;
+    grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end;
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .well {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--ink);
+    background:
+      radial-gradient(circle at 70% 18%, color-mix(in oklch, var(--accent) 35%, transparent), transparent 46%),
+      linear-gradient(180deg, var(--ink-deep), oklch(0.22 0.03 255));
+    color: var(--paper-on-ink);
+    font-size: 1.35rem;
+  }
+
+  .well--portrait {
+    margin-bottom: 1.1rem;
+  }
+
+  .founder__copy {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 38rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .founder__copy h3,
+  .roster h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-subhead);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .founder__copy p,
+  .roster p:last-child {
+    font-size: var(--text-small);
+  }
+
+  .founder__close {
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  .roster {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 1.75rem;
+    padding-top: clamp(2rem, 4vw, 3.25rem);
+  }
+
+  .roster article {
+    display: grid;
+    align-content: start;
+    gap: 0.55rem;
+  }
+
+  @media (max-width: 860px) {
+    .founder {
+      grid-template-columns: 1fr;
+    }
+
+    .well {
+      max-width: 16rem;
+    }
+
+    .roster {
+      grid-template-columns: 1fr;
+    }
+
+    .well--portrait {
+      max-width: 14rem;
+    }
+  }
+</style>

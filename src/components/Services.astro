@@ -1,0 +1,184 @@
+---
+import { services } from "../content/site";
+import Icon from "./Icon.astro";
+import StudioLabel from "./StudioLabel.astro";
+---
+
+<section class="section services" id={services.id}>
+  <div class="wrap">
+    <header class="section-head">
+      <StudioLabel text={services.label} />
+      <h2>{services.heading}</h2>
+      <p class="lede">{services.lede}</p>
+    </header>
+
+    <ol class="bento">
+      {
+        services.items.map((item, i) => (
+          <li class:list={["tile", item.span === "wide" && "tile--wide", i === 0 && "tile--featured"]} style={`--i: ${i}`}>
+            <div class="tile__top">
+              <span class="mono">{item.index}</span>
+              <Icon name={item.icon} />
+            </div>
+            <p class="tile__tag studio-label">{item.tag}</p>
+            <h3 class="display">{item.title}</h3>
+            <p>{item.body}</p>
+            <ul class="chips">
+              {item.chips.map((chip) => <li class="chip">{chip}</li>)}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+
+    <aside class="band">
+      <div class="band__copy">
+        <h3 class="display">{services.cta.heading}</h3>
+        <p>{services.cta.body}</p>
+      </div>
+      <a class="btn" href={services.cta.href}>{services.cta.label} →</a>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+
+  .tile {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+    min-height: 16rem;
+    padding: 1.5rem 1.5rem 1.7rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    transition: background var(--dur-med) var(--ease-out-quart);
+  }
+
+  .tile--wide {
+    grid-column: 1 / -1;
+    min-height: 15rem;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.5rem;
+  }
+
+  .tile--featured {
+    background: var(--ink-deep);
+    color: var(--paper-on-ink);
+  }
+
+  .tile--featured:hover {
+    background: var(--ink);
+  }
+
+  .tile--featured .mono,
+  .tile--featured p {
+    color: var(--paper-muted);
+  }
+
+  .tile--featured :global(.icon) {
+    color: var(--accent-soft);
+  }
+
+  .tile--wide h3,
+  .tile--wide p,
+  .tile--wide .tile__tag,
+  .tile--wide .chips {
+    grid-column: 2;
+  }
+
+  .tile--featured .tile__tag {
+    color: var(--paper-muted);
+  }
+
+  .tile:hover:not(.tile--featured) {
+    background: color-mix(in oklch, var(--bg) 88%, var(--accent));
+  }
+
+  .tile__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--accent);
+  }
+
+  .tile--wide .tile__top {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-width: 4rem;
+  }
+
+  .tile .mono {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  .tile h3 {
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .tile p {
+    max-width: 42ch;
+    font-size: var(--text-small);
+  }
+
+  .band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-top: clamp(2rem, 4vw, 3.25rem);
+    padding: 1.6rem 0 0;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .band__copy {
+    display: grid;
+    gap: 0.45rem;
+    max-width: 32rem;
+  }
+
+  .band__copy h3 {
+    font-size: var(--text-subhead);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 700px) {
+    .bento,
+    .tile--wide {
+      grid-template-columns: 1fr;
+    }
+
+    .tile--wide h3,
+    .tile--wide p,
+    .tile--wide .tile__tag,
+    .tile--wide .chips,
+    .tile--wide .tile__top {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .tile--wide .tile__top {
+      flex-direction: row;
+      min-width: 0;
+    }
+  }
+</style>

@@ -1,0 +1,122 @@
+---
+import { nav, site } from "../content/site";
+---
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="nav__mark display" href="#top">{site.name}</a>
+    <nav class="nav__links" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))
+      }
+    </nav>
+    <a class="btn nav__cta" href="#contact" aria-label="Get a strategy call">
+      <span class="nav__cta-full">Get a strategy call</span>
+      <span class="nav__cta-short">Strategy call</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background: var(--bg);
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav__bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    min-height: var(--nav-h);
+  }
+
+  .nav__mark {
+    flex: 0 0 auto;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav__links {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    gap: clamp(1rem, 2.4vw, 2rem);
+  }
+
+  .nav__links a {
+    color: var(--muted);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out-quart);
+  }
+
+  .nav__links a:hover {
+    color: var(--ink);
+  }
+
+  .nav__cta {
+    flex: 0 0 auto;
+    min-height: 2.15rem;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+
+  .nav__cta-short {
+    display: none;
+  }
+
+  @media (max-width: 860px) {
+    .nav__bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      padding-block: 0.75rem;
+      gap: 0.7rem 1rem;
+    }
+
+    .nav__links {
+      grid-column: 1 / -1;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      row-gap: 0.45rem;
+    }
+
+    .nav__mark {
+      min-width: 0;
+      font-size: 0.95rem;
+    }
+
+    .nav__cta {
+      justify-self: end;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.75rem;
+    }
+
+    .nav__cta-full {
+      display: none;
+    }
+
+    .nav__cta-short {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav__bar {
+      grid-template-columns: 1fr;
+    }
+
+    .nav__cta {
+      justify-self: stretch;
+      width: 100%;
+    }
+  }
+</style>

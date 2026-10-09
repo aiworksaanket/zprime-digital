@@ -1,0 +1,58 @@
+---
+interface Props {
+  name: "search" | "target" | "funnel" | "share" | "doc";
+}
+
+const { name } = Astro.props;
+---
+
+<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  {
+    name === "search" && (
+      <>
+        <circle cx="11" cy="11" r="7" />
+        <path d="M20 20l-4.2-4.2" />
+      </>
+    )
+  }
+  {
+    name === "target" && (
+      <>
+        <circle cx="12" cy="12" r="8" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none" />
+      </>
+    )
+  }
+  {name === "funnel" && <path d="M4 5h16l-6.2 8.2V20l-3.6 1.6v-8.4L4 5z" />}
+  {
+    name === "share" && (
+      <>
+        <circle cx="6" cy="12" r="2.2" />
+        <circle cx="17" cy="6.5" r="2.2" />
+        <circle cx="17" cy="17.5" r="2.2" />
+        <path d="M8 11.2 15 7.4M8 12.8l7 4.8" />
+      </>
+    )
+  }
+  {
+    name === "doc" && (
+      <>
+        <path d="M7 3.5h7.2L19 8.2V20.5H7V3.5z" />
+        <path d="M14.2 3.5V8.2H19M9.2 13h5.6M9.2 16.4h3.8" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+</style>

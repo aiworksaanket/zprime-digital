@@ -1,0 +1,172 @@
+---
+import { process } from "../content/site";
+import StudioLabel from "./StudioLabel.astro";
+---
+
+<section class="section process" id={process.id}>
+  <div class="wrap">
+    <header class="section-head">
+      <StudioLabel text={process.label} />
+      <h2>{process.heading}</h2>
+      <p class="lede">{process.lede}</p>
+    </header>
+
+    <div class="loop">
+      <ol class="loop__list">
+        {
+          process.steps.map((step, i) => (
+            <li class="loop-step" style={`--i: ${i}`}>
+              <span class="mono">{step.index}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="loop__caption">{process.loopCaption}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    background:
+      linear-gradient(180deg, transparent, color-mix(in oklch, var(--accent) 8%, transparent)),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .loop {
+    position: relative;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1.25rem;
+    background: var(--bg);
+  }
+
+  .loop::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--ink);
+    pointer-events: none;
+  }
+
+  .loop::after {
+    content: "";
+    position: absolute;
+    top: 3.15rem;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background: var(--accent);
+    pointer-events: none;
+  }
+
+  .loop__list {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .loop-step {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    animation: step-in 640ms var(--ease-out-expo);
+    animation-delay: calc(var(--i) * 70ms);
+  }
+
+  .loop-step span {
+    display: inline-grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    margin-bottom: 0.35rem;
+    border: 1px solid var(--ink);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 0.7rem;
+  }
+
+  .loop-step h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .loop-step p {
+    color: var(--ink);
+    font-size: var(--text-small);
+    max-width: 22ch;
+  }
+
+  .loop__caption {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    padding: 0 0.75rem;
+    background: var(--bg);
+    color: var(--muted);
+    font-size: var(--text-label);
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  @keyframes step-in {
+    from {
+      opacity: 0.35;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .loop__list {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .loop-step {
+      grid-template-columns: 2.6rem minmax(0, 1fr);
+      column-gap: 0.85rem;
+      padding-block: 1.1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .loop-step:last-child {
+      border-bottom: 0;
+    }
+
+    .loop::after {
+      display: none;
+    }
+
+    .loop-step span {
+      grid-row: 1 / 3;
+      margin-bottom: 0;
+    }
+
+    .loop-step p {
+      max-width: none;
+    }
+
+    .loop__caption {
+      position: static;
+      transform: none;
+      margin-top: 1.25rem;
+      padding: 0;
+      text-align: left;
+    }
+  }
+</style>

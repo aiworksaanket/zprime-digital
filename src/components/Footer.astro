@@ -1,0 +1,73 @@
+---
+import { footerNav, site } from "../content/site";
+---
+
+<footer class="footer" id="site-footer">
+  <div class="wrap">
+    <p class="footer__mark display">{site.name}</p>
+    <div class="footer__bar">
+      <p>
+        Pune performance studio.<br />
+        Founded by {site.founder}.
+      </p>
+      <nav class="footer__nav" aria-label="Footer">
+        {
+          footerNav.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))
+        }
+      </nav>
+      <a class="btn" href="#contact">Get a strategy call</a>
+    </div>
+    <p class="footer__legal">
+      © {site.year} {site.name}, Pune. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(3rem, 7vw, 5rem) 2.25rem;
+    background: var(--ink-deep);
+    color: var(--paper-on-ink);
+  }
+
+  .footer__mark {
+    margin: 0 0 1.75rem;
+    font-size: clamp(2.4rem, 8vw, 6.5rem);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+  }
+
+  .footer__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line-on-ink);
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1.25rem;
+  }
+
+  .footer__nav a {
+    color: var(--paper-on-ink);
+    text-decoration: none;
+  }
+
+  .footer__nav a:hover {
+    color: var(--accent-soft);
+  }
+
+  .footer__legal {
+    margin-top: 1.25rem;
+    color: oklch(0.96 0.006 255 / 0.58);
+    font-size: 0.8125rem;
+  }
+</style>
